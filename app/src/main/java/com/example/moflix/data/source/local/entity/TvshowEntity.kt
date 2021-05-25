@@ -1,4 +1,4 @@
-package com.example.moflix.data
+package com.example.moflix.data.source.local.entity
 
 data class TvshowEntity (
     var tvshowId: String,
@@ -6,5 +6,5 @@ data class TvshowEntity (
     var description :String,
     var releaseDate: String,
     var rating: String,
-    var imagePath: Int
+    var imagePath: String
         )

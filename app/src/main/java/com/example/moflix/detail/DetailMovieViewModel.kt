@@ -1,11 +1,12 @@
 package com.example.moflix.detail
 
 import androidx.lifecycle.ViewModel
-import com.example.moflix.data.MoviesEntity
-import com.example.moflix.data.TvshowEntity
+import com.example.moflix.data.source.MovieRepository
+import com.example.moflix.data.source.local.entity.MoviesEntity
+import com.example.moflix.data.source.local.entity.TvshowEntity
 import com.example.moflix.utils.DataDummy
 
-class DetailMovieViewModel: ViewModel() {
+class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewModel() {
 
     private lateinit var Id: String
 
@@ -13,10 +14,11 @@ class DetailMovieViewModel: ViewModel() {
         this.Id = Id
     }
 
-    fun getTvshow(): TvshowEntity{
+    fun getTvshow(): TvshowEntity {
         lateinit var tvshow: TvshowEntity
-        tvshow = TvshowEntity("","","","","",0)
-        val tvshowEntities = DataDummy.generateDummyTvshow()
+        tvshow = TvshowEntity("","","","","","")
+        //val tvshowEntities = DataDummy.generateDummyTvshow()
+        val tvshowEntities = movieRepository.getAllTvshow()
         for (tvshowEntitiy in tvshowEntities){
             if(tvshowEntitiy.tvshowId == Id ){
                 tvshow = tvshowEntitiy
@@ -25,10 +27,11 @@ class DetailMovieViewModel: ViewModel() {
         return tvshow
     }
 
-    fun getMovies(): MoviesEntity{
+    fun getMovies(): MoviesEntity {
         lateinit var movies : MoviesEntity
-        movies = MoviesEntity("","","","","",0)
-        val moviesEntities = DataDummy.generateDummyMovies()
+        movies = MoviesEntity("","","","","","")
+        //val moviesEntities = DataDummy.generateDummyMovies()
+        val moviesEntities = movieRepository.getAllMovies()
         for(moviesEntity in moviesEntities){
             if(moviesEntity.moviesId == Id){
                 movies = moviesEntity

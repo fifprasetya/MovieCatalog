@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.example.moflix.R
-import com.example.moflix.data.MoviesEntity
+import com.example.moflix.data.source.local.entity.MoviesEntity
 import com.example.moflix.databinding.ItemsMoviesBinding
 import com.example.moflix.detail.DetailMovieActivity
 

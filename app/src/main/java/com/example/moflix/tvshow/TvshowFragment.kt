@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moflix.R
 import com.example.moflix.databinding.FragmentTvshowBinding
 import com.example.moflix.utils.DataDummy
+import com.example.moflix.viewmodel.ViewModelFactory
 
 
 class TvshowFragment : Fragment() {
@@ -28,7 +29,8 @@ class TvshowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null){
-            val viewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[TvshowViewModel::class.java]
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this,factory)[TvshowViewModel::class.java]
             val tvshows = viewModel.getTvshows()
             val tvshowAdapter = TvshowAdapter()
             tvshowAdapter.setTvshow(tvshows)
