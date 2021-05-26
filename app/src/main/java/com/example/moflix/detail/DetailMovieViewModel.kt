@@ -1,5 +1,7 @@
 package com.example.moflix.detail
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.moflix.data.source.MovieRepository
 import com.example.moflix.data.source.local.entity.MoviesEntity
@@ -14,7 +16,7 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewMo
         this.Id = Id
     }
 
-    fun getTvshow(): TvshowEntity {
+    /*fun getTvshow(): TvshowEntity {
         lateinit var tvshow: TvshowEntity
         tvshow = TvshowEntity("","","","","","")
         //val tvshowEntities = DataDummy.generateDummyTvshow()
@@ -22,7 +24,10 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewMo
         for (tvshowEntitiy in tvshowEntities){
             if(tvshowEntitiy.tvshowId == Id ){
                 tvshow = tvshowEntitiy
+                Log.d("tvshowEntity", "data tvshow masuk")
             }
+            Log.d("tvshowEntities",tvshowEntitiy.imagePath)
+
         }
         return tvshow
     }
@@ -35,10 +40,18 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewMo
         for(moviesEntity in moviesEntities){
             if(moviesEntity.moviesId == Id){
                 movies = moviesEntity
+                Log.d("moviesEntitiy", "data movies masuk")
             }
+            Log.d("moviesEntitiy", moviesEntity.imagePath)
+
         }
         return movies
     }
 
+     */
+
+    fun getTvshow(): LiveData<TvshowEntity> = movieRepository.getTvshowWithId(Id)
+
+    fun getMovies(): LiveData<MoviesEntity> = movieRepository.getMoviesWithId(Id)
 
 }

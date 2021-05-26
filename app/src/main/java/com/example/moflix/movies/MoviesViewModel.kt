@@ -1,5 +1,6 @@
 package com.example.moflix.movies
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.moflix.data.source.MovieRepository
 import com.example.moflix.data.source.local.entity.MoviesEntity
@@ -9,5 +10,5 @@ class MoviesViewModel(private val moviesRepository: MovieRepository): ViewModel(
 
     //fun getMovies(): List<MoviesEntity> = DataDummy.generateDummyMovies()
 
-    fun getMovies(): List<MoviesEntity> = moviesRepository.getAllMovies()
+    fun getMovies(): LiveData<List<MoviesEntity>> = moviesRepository.getAllMovies()
 }

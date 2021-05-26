@@ -1,6 +1,7 @@
 package com.example.moflix.tvshow
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,9 +32,16 @@ class TvshowFragment : Fragment() {
         if(activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this,factory)[TvshowViewModel::class.java]
-            val tvshows = viewModel.getTvshows()
+            //val tvshows = viewModel.getTvshows()
             val tvshowAdapter = TvshowAdapter()
-            tvshowAdapter.setTvshow(tvshows)
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.getTvshows().observe(viewLifecycleOwner, { tvshows ->
+                binding.progressBar.visibility = View.GONE
+                tvshowAdapter.setTvshow(tvshows)
+                tvshowAdapter.notifyDataSetChanged()
+
+            })
+            //tvshowAdapter.setTvshow(tvshows)
 
             with(binding.rvTvshow){
                 layoutManager = LinearLayoutManager(context)

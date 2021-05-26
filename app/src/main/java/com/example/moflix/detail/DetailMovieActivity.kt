@@ -1,6 +1,8 @@
 package com.example.moflix.detail
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -31,16 +33,35 @@ class DetailMovieActivity : AppCompatActivity() {
             factory
         )[DetailMovieViewModel::class.java]
         val moviesId = intent.getStringExtra(EXTRA_MOVIES)
+        Log.d("moviesFragment","Check Data")
         if (moviesId != null) {
+            binding.progressBar.visibility = View.VISIBLE
             viewModel.setSelectedId(moviesId)
-            if (viewModel.getTvshow().tvshowId == moviesId) {
+            viewModel.getTvshow().observe(this, { tvshow ->
+                binding.progressBar.visibility = View.GONE
+                if(tvshow.tvshowId == moviesId){
+                    populateTvshow(tvshow)
+                }else{
+                    viewModel.getMovies().observe(this, { movies -> populateMovies(movies)})
+                }})
+            /*if (viewModel.getTvshow().id == moviesId) {
                 val tvshow = viewModel.getTvshow()
+                Log.d("tvshowDetail", viewModel.getTvshow().title)
                 populateTvshow(tvshow)
-            } else {
+
+                 */
+
+            /* } else {
+
                 val movies = viewModel.getMovies()
+                Log.d("moviesDetail", viewModel.getMovies().title)
                 populateMovies(movies)
-            }
+
+
+
+            }*/
         }
+        Log.d("moviesFragment","Check Selesai")
 
         binding.favBtn.setOnClickListener {
             Toast.makeText(this, "Favorite Button coming soon", Toast.LENGTH_SHORT).show()

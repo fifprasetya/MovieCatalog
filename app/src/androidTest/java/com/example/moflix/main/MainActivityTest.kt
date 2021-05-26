@@ -24,27 +24,27 @@ class MainActivityTest {
 
     @Test
     fun loadMovies(){
+        delayTwoSecond()
         onView(withId(R.id.rv_movies)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
     }
 
     @Test
     fun loadDetailMovie(){
+        delayTwoSecond()
         onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,click()))
+        delayTwoSecond()
         onView(withId(R.id.text_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_title)).check(matches(withText(dummyMovies[0].title)))
         onView(withId(R.id.text_description)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_description)).check(matches(withText(dummyMovies[0].description)))
         onView(withId(R.id.text_rating)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_rating)).check(matches(withText(dummyMovies[0].rating)))
         onView(withId(R.id.text_release)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_release)).check(matches(withText(dummyMovies[0].releaseDate)))
         onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
     }
 
     @Test
     fun loadTvshow(){
         onView(withText("TvShow")).perform(click())
+        delayTwoSecond()
         onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvshow.size))
     }
@@ -52,15 +52,21 @@ class MainActivityTest {
     @Test
     fun loadDetailTvshow(){
         onView(withText("TvShow")).perform(click())
+        delayTwoSecond()
         onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,click()))
+        delayTwoSecond()
         onView(withId(R.id.text_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_title)).check(matches(withText(dummyTvshow[0].title)))
         onView(withId(R.id.text_description)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_description)).check(matches(withText(dummyTvshow[0].description)))
         onView(withId(R.id.text_rating)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_rating)).check(matches(withText(dummyTvshow[0].rating)))
         onView(withId(R.id.text_release)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_release)).check(matches(withText(dummyTvshow[0].releaseDate)))
         onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
+    }
+
+    private fun delayTwoSecond() {
+        try {
+            Thread.sleep(2000)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
     }
 }

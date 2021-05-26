@@ -23,14 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/gradientbackground">
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.cardview.widget.CardView
@@ -50,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:ignore= "ContentDescription"
-                android:src="@drawable/poster_the_simpson"/>
+                android:src="@drawable/loadposter"/>
         </androidx.cardview.widget.CardView>
 
 
@@ -145,6 +137,14 @@
             android:src="@drawable/ic_baseline_star_rate_24"
             android:layout_marginStart="4dp"/>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

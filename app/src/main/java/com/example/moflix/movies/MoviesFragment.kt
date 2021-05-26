@@ -1,6 +1,7 @@
 package com.example.moflix.movies
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,9 +32,18 @@ class MoviesFragment : Fragment() {
         if(activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
-            val movies = viewModel.getMovies()
+
             val moviesAdapter = MoviesAdapter()
-            moviesAdapter.setMovies(movies)
+            //val movies = viewModel.getMovies()
+
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.getMovies().observe(viewLifecycleOwner , { movies ->
+                binding.progressBar.visibility = View.GONE
+                moviesAdapter.setMovies(movies)
+                moviesAdapter.notifyDataSetChanged()
+            })
+
+            //moviesAdapter.setMovies(movies)
 
             with(binding.rvMovies){
                 layoutManager = LinearLayoutManager(context)
