@@ -10,4 +10,5 @@
     <string name="rate">10/10</string>
     <string name="description">Description</string>
     <string name="description_movie">Description Movie</string>
+    <string name="daftar_favorite">Daftar Favorite</string>
 </resources>

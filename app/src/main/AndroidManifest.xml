@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoFlix"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".favorite.FavoriteActivity"></activity>
         <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".detail.DetailMovieActivity" />
-        <activity android:name=".main.MainActivity">
-
-        </activity>
+        <activity android:name=".main.MainActivity"></activity>
     </application>
 
 </manifest>

@@ -2,21 +2,67 @@ package com.example.moflix.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.moflix.data.source.MovieRepository
 import com.example.moflix.data.source.local.entity.MoviesEntity
 import com.example.moflix.data.source.local.entity.TvshowEntity
 import com.example.moflix.utils.DataDummy
+import com.example.moflix.vo.Resource
 
 class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewModel() {
 
-    private lateinit var Id: String
+    val Id = MutableLiveData<String>()
 
     fun setSelectedId(Id: String) {
-        this.Id = Id
+        this.Id.value = Id
     }
 
-    /*fun getTvshow(): TvshowEntity {
+    var moviesData: LiveData<Resource<MoviesEntity>> = Transformations.switchMap(Id){ mMoviesId ->
+        movieRepository.getMoviesWithId(mMoviesId)
+    }
+
+    var tvshowData: LiveData<Resource<TvshowEntity>> = Transformations.switchMap(Id){ mTvshowId ->
+        movieRepository.getTvshowWithId(mTvshowId)
+    }
+
+
+
+    fun setFavoriteMovie(){
+        val moviesResource = moviesData.value
+        if (moviesResource != null){
+            val moviesWithId = moviesResource.data
+
+            if(moviesWithId != null){
+                val newState = !moviesWithId.favorite
+                movieRepository.setMovieFavorite(moviesWithId, newState)
+            }
+        }
+    }
+
+    fun setFavoriteTvshow(){
+        val tvshowResource = tvshowData.value
+        if(tvshowResource != null){
+            val tvshowWithId = tvshowResource.data
+            if(tvshowWithId != null){
+                val newState = !tvshowWithId.favorite
+                movieRepository.setTvshowFavorite(tvshowWithId, newState)
+            }
+        }
+    }
+
+    val DataV = tvshowData.value
+    val mDatam = DataV?.data
+    val DataM = moviesData.value
+    val vDatam = DataM?.data
+    fun getTvshow(): LiveData<Resource<TvshowEntity>> = movieRepository.getTvshowWithId(mDatam!!.tvshowId)
+
+    fun getMovies(): LiveData<Resource<MoviesEntity>> = movieRepository.getMoviesWithId(vDatam!!.moviesId)
+
+}
+
+/*fun getTvshow(): TvshowEntity {
         lateinit var tvshow: TvshowEntity
         tvshow = TvshowEntity("","","","","","")
         //val tvshowEntities = DataDummy.generateDummyTvshow()
@@ -49,9 +95,3 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository): ViewMo
     }
 
      */
-
-    fun getTvshow(): LiveData<TvshowEntity> = movieRepository.getTvshowWithId(Id)
-
-    fun getMovies(): LiveData<MoviesEntity> = movieRepository.getMoviesWithId(Id)
-
-}

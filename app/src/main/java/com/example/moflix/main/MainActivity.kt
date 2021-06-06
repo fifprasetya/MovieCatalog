@@ -1,14 +1,21 @@
 package com.example.moflix.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moflix.R
+import com.example.moflix.databinding.ActivityMainBinding
+import com.example.moflix.favorite.FavoriteActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     companion object{
         @StringRes
@@ -31,5 +38,22 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
         supportActionBar?.elevation = 0f
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.action_favorite -> {
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return true
+        }
     }
 }
